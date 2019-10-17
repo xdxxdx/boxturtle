@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdx.dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.xdx.model.Admin">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
+    <result column="true_name" jdbcType="VARCHAR" property="trueName" />
+    <result column="user_face" jdbcType="VARCHAR" property="userFace" />
+    <result column="brief_info" jdbcType="VARCHAR" property="briefInfo" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+  </resultMap>
+</mapper>
