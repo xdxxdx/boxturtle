@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
 import TagAdd from '../views/TagAdd.vue'
+import TagEdit from '../views/TagEdit.vue'
 import TagList from '../views/TagList.vue'
 
 Vue.use(VueRouter)
@@ -21,6 +22,11 @@ const routes = [
         path:'/tag/list',
         name:'tagList',
         component:TagList,
+      },
+      {
+        path:`/tag/:tagName/edit`,
+        name:'tagEdit',
+        component:TagEdit,
       },
     ]
   },
