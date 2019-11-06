@@ -18,3 +18,9 @@ mybatis:
   type-handlers-package: com.xdx.handler
   configuration:
     map-underscore-to-camel-case: true
+pagehelper:
+  helperDialect: mysql
+  supportMethodsArguments: true
+  params: count=countSql
+  reasonable: true
+  page-size-zero: true
