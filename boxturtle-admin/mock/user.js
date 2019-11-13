@@ -7,7 +7,7 @@ const tokens = {
     token: 'editor-token'
   }
 }
-
+// 这里模拟的是用户数据，根据用户的token，获取用户数据，类似于我们根据sessionId，获取session，然后根据session获取用户信息
 const users = {
   'admin-token': {
     roles: ['admin'],
@@ -30,6 +30,7 @@ export default [
     type: 'post',
     response: config => {
       const { username } = config.body
+      // 比如username是amdin，则token就是{token:'admin-token'}
       const token = tokens[username]
 
       // mock error

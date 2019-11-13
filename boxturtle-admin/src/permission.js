@@ -9,7 +9,7 @@ import getPageTitle from '@/utils/get-page-title'
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
-
+// 拦截器，访问每个路由之前拦截
 router.beforeEach(async(to, from, next) => {
   // start progress bar
   NProgress.start()
@@ -18,15 +18,18 @@ router.beforeEach(async(to, from, next) => {
   document.title = getPageTitle(to.meta.title)
 
   // determine whether the user has logged in
+  // 通过是否有token来判断是否有登陆，因为登录的时候会将token存入cookie中，只要cookie没有失效，就能获取到token信息
   const hasToken = getToken()
 
   if (hasToken) {
+    // 有登陆的情况下继续访问登录页，则调到首页
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
     } else {
       // determine whether the user has obtained his permission roles through getInfo
+      // 判断当前用户是否有角色信息，初始状态下，包括刚登录的时候，store中的roles是为空的
       const hasRoles = store.getters.roles && store.getters.roles.length > 0
       if (hasRoles) {
         next()
@@ -34,6 +37,7 @@ router.beforeEach(async(to, from, next) => {
         try {
           // get user info
           // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
+          // 调用store/user中的getInfo这个action，获取到用户的roles
           const { roles } = await store.dispatch('user/getInfo')
 
           // generate accessible routes map based on roles

@@ -1,7 +1,7 @@
 import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
-
+// roles在初始状态下是为空的
 const state = {
   token: getToken(),
   name: '',
@@ -33,9 +33,12 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
+      // 调用后端接口api login,传入账号密码,返回的是code和data,其中data为{token:'admin-token'}
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
+        // 执行这一步以后state.user.token='admin-token'
         commit('SET_TOKEN', data.token)
+        // 现在调用util中auth中的setToken方法，将admin-token这个值放入cookie中，下次就可以直接获取了
         setToken(data.token)
         resolve()
       }).catch(error => {
@@ -45,8 +48,11 @@ const actions = {
   },
 
   // get user info
+  // 获取登录用户的信息，包含角色，以及对应的权限（路由）等信息
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
+      // 调用getInfo这个api，从后台获取用户信息，传入的是token值，类似我们每次请求的时候，将sessionId传到后台
+      // 后台回传的是用户的角色，姓名，头像，介绍等
       getInfo(state.token).then(response => {
         const { data } = response
 
@@ -60,7 +66,7 @@ const actions = {
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
         }
-
+        // 将roles,name,avatar,introduction这些信息存入到state中
         commit('SET_ROLES', roles)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)

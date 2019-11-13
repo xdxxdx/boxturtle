@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-
+// 可以从mock/user中查看返回值
 export function login(data) {
   return request({
     url: '/user/login',
