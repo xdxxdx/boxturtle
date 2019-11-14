@@ -15,6 +15,7 @@ function hasPermission(roles, route) {
 
 /**
  * Filter asynchronous routing tables by recursion
+ * 递归的方法获取路由菜单，一层一层的判断路由是否符合该角色
  * @param routes asyncRoutes
  * @param roles
  */
@@ -42,6 +43,7 @@ const state = {
 const mutations = {
   SET_ROUTES: (state, routes) => {
     state.addRoutes = routes
+    // 将动态路由部分和公用路由部分合并，就是该角色的总路由
     state.routes = constantRoutes.concat(routes)
   }
 }
@@ -51,8 +53,10 @@ const actions = {
     return new Promise(resolve => {
       let accessedRoutes
       if (roles.includes('admin')) {
+        // 如果是管理员，则获取所有异步权限菜单
         accessedRoutes = asyncRoutes || []
       } else {
+        // 否则，根据roles来获取权限，传入动态菜单对象和角色
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       }
       commit('SET_ROUTES', accessedRoutes)
