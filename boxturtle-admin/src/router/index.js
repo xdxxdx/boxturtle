@@ -132,9 +132,9 @@ export const asyncRoutes = [
   {
     path: '/permission',
     component: Layout,
-    redirect: '/permission/page',
+    redirect: '/sys/sys-role',
     alwaysShow: true, // will always show the root menu
-    name: 'Permission',
+    name: 'SysRole',
     meta: {
       title: '系统管理',
       icon: 'list',
@@ -142,8 +142,8 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: 'page',
-        component: () => import('@/views/permission/page'),
+        path: 'sys-role',
+        component: () => import('@/views/sys/sys-role'),
         name: '角色管理',
         meta: {
           title: '角色管理',
