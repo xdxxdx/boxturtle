@@ -25,6 +25,8 @@ import java.util.List;
 @SpringBootApplication
 @Slf4j
 @MapperScan("com.xdx.dao")
+//测试git
+//
 public class BoxturtleServerApplication implements ApplicationRunner {
 	@Autowired
 	private AdminMapper adminMapper;
