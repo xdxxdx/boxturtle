@@ -26,6 +26,7 @@ import java.util.List;
 @Slf4j
 @MapperScan("com.xdx.dao")
 public class BoxturtleServerApplication implements ApplicationRunner {
+	//eeee
 	@Autowired
 	private AdminMapper adminMapper;
 	@Autowired
